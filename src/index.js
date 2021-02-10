@@ -1,7 +1,8 @@
 const spiceUrl = "http://localhost:3000/spiceblends"
 const ingredientUrl = "http://localhost:3000/ingredients"
+// const dataUrls => {("http://localhost:3000/spiceblends", "http://localhost:3000/ingredients")}
 
-const spiceImages = document.getElementById("spice-images")
+const spiceImages = document.querySelector("#spice-images")
 const spiceDetail = document.getElementById("spice-blend-detail")
 const spiceDetailImage = document.querySelector(".detail-image")
 const spiceTitle = document.querySelector(".title")
@@ -17,33 +18,51 @@ function fetchSpices(){
     .then(spiceData => spiceData.forEach(spiceObj => renderSpice(spiceObj)))
 }
 
+// function fetchMenuImages(){
+//     fetch(spiceUrl)
+//     .then(response => response.json())
+//     .then(spiceData => spiceData.forEach(spiceObj => renderMenuImage(spiceObj)))
+// }
+
 function fetchIngredients(){
     fetch(ingredientUrl)
     .then(response => response.json())
     .then(ingredientData => ingredientData.forEach(ingredientObj => renderIngredient(ingredientObj)))
 }
 
+// function renderMenuImage(spiceObj){
+//     const spiceImage = document.createElement("img")
+//         spiceImage.src = spiceObj.image
+//         spiceImage.alt = spiceObj.title
+//         spiceImage.dataset.id = spiceObj.id
+//     spiceImages.append(spiceImage)
+// }
+
 function renderSpice(spiceObj){
-    const spiceImage = document.createElement("img")
-        spiceImage.src = spiceObj.image
-        spiceImage.alt = spiceObj.title
-        spiceImage.dataset.id = spiceObj.id
+   spiceDetailImage.innerHTML = spiceObj.image
+        spiceDetailImage.src = spiceObj.image
+        spiceDetailImage.alt = spiceObj.title
+        spiceDetailImage.dataset.id = spiceObj.id
+
     spiceTitle.innerHTML = spiceObj.title
         spiceTitle.dataset.id = spiceObj.id
-    
 
+    const spiceImage = docuemnt.createElement("img")
+        spiceImage.src = spiceObj.image
+        spiceImage.alt = spiceObj.title        
+   
     spiceImages.append(spiceImage)
-    spiceDetail.append(spiceTitle)  
-    // spiceDetailImage.append(spiceImage)
+    spiceDetail.append(spiceTitle)
+
 }
+
 
 function renderIngredient(ingredientObj){
     const ingredientLi = document.createElement("li")
         ingredientLi.classList.add("ingredient-li")
-        ingredientLi.dataset.id = spiceObj.id
     const ingredientName = document.createElement("h5")
         ingredientName.textContent = ingredientObj.name
-        ingredientName.dataset.id = spiceObj.id
+        ingredientName.dataset.id = ingredientObj.spiceblendId
 
     ingredientLi.append(ingredientName)
     ingredientsUl.append(ingredientLi)
